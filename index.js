@@ -99,11 +99,19 @@ function deleteItem(id, type) {
 
 function editItem(id, type) {
   const newName = prompt("Podaj nową nazwę:");
-  const newAmount = parseFloat(prompt("Podaj nową kwotę:"));
 
-  if (newName === null || newName.trim() === "" || isNaN(newAmount)) {
+  if (newName === null || newName.trim() === "") {
     return;
   }
+
+  let newAmount;
+  do {
+    newAmount = parseFloat(prompt("Podaj nową kwotę:"));
+
+    if (isNaN(newAmount) || newAmount <= 0) {
+      alert("Kwota musi być liczbą większą od zera!");
+    }
+  } while (isNaN(newAmount) || newAmount <= 0);
 
   if (type === "income") {
     incomes[id].name = newName;
